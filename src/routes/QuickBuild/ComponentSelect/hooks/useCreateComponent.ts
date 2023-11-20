@@ -8,7 +8,10 @@ export const useCreateComponent = () => {
     const {protectedFetch} = useAuthentication()
     return useMutation({
         mutationFn: async (componentName: string) => {
-            return protectedFetch
+            return protectedFetch(`https://${import.meta.env.COMPONENTS_API_BASE_URL}/create-component`, {
+                method: 'POST',
+                body: JSON.stringify({componentName})
+            })
         }
     })
 }

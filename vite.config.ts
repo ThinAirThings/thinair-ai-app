@@ -13,6 +13,7 @@ export default defineConfig(async () => {
         COGNITO_CLIENT_GRANT_TOKEN_REDIRECT_URL: `${prefix}/cognito/client/grant_token_redirect_url`,
         COGNITO_CLIENT_HOSTEDUI_URL_SIGN_IN: `${prefix}/cognito/client/hostedui_url/sign_in`,
         AUTHENTICATION_API_BASE_URL: `${prefix}/rest_apis/AuthenticationApi/base_url`,
+        COMPONENTS_API_BASE_URL: `${prefix}/rest_apis/ComponentsApi/base_url`,
     }
     const thinairCloudParams = await ssmClient.send(new GetParametersCommand({
         Names: Object.values(paramIndex)

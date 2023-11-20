@@ -1,6 +1,6 @@
 /**
  * Do not edit directly
- * Generated on Sat, 18 Nov 2023 16:41:39 GMT
+ * Generated on Mon, 20 Nov 2023 00:38:49 GMT
  */
 
 export const GradientGlassStroke0 = {"gradientType":"radial","rotation":318.15912885242915,"stops":[{"position":0,"color":"#ffffffff"},{"position":1,"color":"#ffffff00"}]};

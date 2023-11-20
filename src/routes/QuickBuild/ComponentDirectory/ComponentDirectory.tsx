@@ -2,7 +2,7 @@ import styled from "@emotion/styled"
 import { stack } from "../../../styles/stackStyle"
 import { FC } from "react"
 import * as designTokens from '../../../style-dictionary-dist/variables'
-import { ComponentSelect } from "../components/ComponentSelect"
+import { ComponentSelect } from "../ComponentSelect/ComponentSelect"
 
 
 export const ComponentDirectory: FC = () => {

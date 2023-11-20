@@ -4,7 +4,9 @@ import * as designTokens from '../../../style-dictionary-dist/variables'
 import CreatableSelect from "react-select/creatable";
 import { stack } from "../../../styles/stackStyle";
 import { useAuthentication } from "../../../air-systems/Authentication.configure";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useCreateComponent } from "./hooks/useCreateComponent";
+import { useComponentList } from "./hooks/useComponentList";
 
 
 
@@ -12,25 +14,14 @@ export const ComponentSelect: FC<{}> = ({
 
 }) => {
     // Mutations
-    const {protectedFetch} = useAuthentication()
-    const createComponent = useMutation({
-        mutationFn: (componentName: string) => {
-            return protectedFetch(`/api/components`, {
-                method: 'POST',
-                body: JSON.stringify({
-                    name: componentName
-                })
-            })
-        }
-    }) 
-    // State
-    const [isLoading, setIsLoading] = useState(false);
-    const [options, setOptions] = useState([]);
+    const createComponent = useCreateComponent()
+    const componentList = useComponentList()
+    const queryClient = useQueryClient()
     return (
         <ComponentSelectContainer>
             <span>Create/Select Component</span>
             <CreatableSelect 
-                isLoading={isLoading}
+                isLoading={createComponent.isPending}
                 styles={{
                     container: (provided) => ({
                         ...provided,
@@ -38,13 +29,16 @@ export const ComponentSelect: FC<{}> = ({
                     }),
                 }}
                 onCreateOption= {(inputValue) => {
-                    setIsLoading(true);
-                    setTimeout(() => {
-                        // const newOption = createOption(inputValue);
-                        setIsLoading(false);
-                        // setOptions([...options, newOption]);
-                    }, 1000);
+                    createComponent.mutate(inputValue, {
+                        onSuccess: () => {
+                            queryClient.invalidateQueries({ queryKey: ['component-list'] })
+                        }
+                    })
                 }}
+                options={componentList.data?.components.map((component) => ({
+                    label: component.componentName,
+                    value: component.componentName
+                }))}
             />
         </ComponentSelectContainer>
     );

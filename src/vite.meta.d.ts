@@ -7,6 +7,7 @@ interface ImportMetaEnv {
     COGNITO_CLIENT_ID: string
     AUTHENTICATION_API_BASE_URL: string
     COGNITO_USERPOOL_OAUTH_ENDPOINT: string
+    COMPONENTS_API_BASE_URL: string
     // more env variables...
 }
 
