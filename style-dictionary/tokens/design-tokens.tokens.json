@@ -339,7 +339,7 @@
       },
       "white": {
         "type": "color",
-        "value": "#f5f5f7ff",
+        "value": "#ffffffff",
         "blendMode": "normal",
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {

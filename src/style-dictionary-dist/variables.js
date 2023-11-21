@@ -1,6 +1,6 @@
 /**
  * Do not edit directly
- * Generated on Mon, 20 Nov 2023 00:38:49 GMT
+ * Generated on Mon, 20 Nov 2023 22:47:34 GMT
  */
 
 export const GradientGlassStroke0 = {"gradientType":"radial","rotation":318.15912885242915,"stops":[{"position":0,"color":"#ffffffff"},{"position":1,"color":"#ffffff00"}]};
@@ -21,7 +21,7 @@ export const EffectShadow21 = {"shadowType":"dropShadow","radius":2,"color":"#00
 export const EffectShadow10 = {"shadowType":"dropShadow","radius":3,"color":"#00000026","offsetX":0,"offsetY":1,"spread":1};
 export const EffectShadow11 = {"shadowType":"dropShadow","radius":2,"color":"#0000004d","offsetX":0,"offsetY":1,"spread":0};
 export const ColorsBlack = "#0e0e0eff";
-export const ColorsWhite = "#f5f5f7ff";
+export const ColorsWhite = "#ffffffff";
 export const ColorsWhitehover = "#e2e2e2ff";
 export const ColorsBlackhover = "#262626ff";
 export const ColorsGray50 = "#ebfaebff";

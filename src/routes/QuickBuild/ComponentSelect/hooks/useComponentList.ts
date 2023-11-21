@@ -8,7 +8,7 @@ export const useComponentList = () => {
     return useQuery({
         queryKey: ['component-list'],
         queryFn: async () => {
-            return await protectedFetch(`https://${import.meta.env.COMPONENTS_API_BASE_URL}/get-component-list`) as {
+            return await protectedFetch(`https://${import.meta.env.MAIN_API_BASE_URL}/v1/components`) as {
                 components: Array<{
                     componentId: string
                     ownerId: string
