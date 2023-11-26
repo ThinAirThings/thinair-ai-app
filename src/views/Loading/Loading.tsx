@@ -22,12 +22,12 @@ const StyledLoading = styled.div`
     width: 100vw;
 
     // Style
-    background-color: ${designTokens.ColorsBlack};
+    background-color: ${designTokens.PrimitivesColorsBlack};
     >span {
         // Layout
         width: 170px;
         height: 170px;
-        border: 4px solid ${designTokens.ColorsWhite};
+        border: 4px solid ${designTokens.PrimitivesColorsWhite};
         border-bottom-color: transparent;
         border-radius: 50%;
         animation: rotation 1s linear infinite;

@@ -5,6 +5,6 @@ export const useStateStore = create(
     combine({
         selectedComponentId: null as string | null
     }, (set) => ({
-        updateSelectedComponentId: (componentId: string|null) => set(() => ({ selectedComponentId: componentId }))
+        updateSelectedComponentId: (componentId: string | null) => set(() => ({ selectedComponentId: componentId }))
     }))
 )

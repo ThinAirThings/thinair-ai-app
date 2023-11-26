@@ -17,8 +17,8 @@ export const AuthenticationView: FC = () => {
             <AuthBlock>
                 <img className="logo" src="/assets/logos/thinair-full-white.svg"/>
                 <ButtonRow>
-                    <ButtonLink color="white" href={import.meta.env.COGNITO_CLIENT_HOSTEDUI_URL_SIGN_IN} >Sign in</ButtonLink>
-                    <ButtonLink color="white" href={import.meta.env.COGNITO_CLIENT_HOSTEDUI_URL_SIGN_IN}>Register</ButtonLink>
+                    <ButtonLink color="white" href={import.meta.env.VITE_COGNITO_CLIENT_HOSTEDUI_URL_SIGN_IN} >Sign in</ButtonLink>
+                    <ButtonLink color="white" href={import.meta.env.VITE_COGNITO_CLIENT_HOSTEDUI_URL_SIGN_IN}>Register</ButtonLink>
                 </ButtonRow>
             </AuthBlock>
         </FullScreen>
@@ -32,7 +32,7 @@ const FullScreen = styled.div`
     height: 100%;
     padding: 10px;
     gap: 10px;
-    background-color: ${designTokens.ColorsBlack};
+    background-color: ${designTokens.PrimitivesColorsBlack};
 `
 
 const AuthBlock = styled.div`

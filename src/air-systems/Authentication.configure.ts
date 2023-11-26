@@ -7,9 +7,9 @@ export const {
     ProtectedRoute,
     useAuthentication
 } = configureAuthentication({
-    authenticationApiBaseUrl: import.meta.env.AUTHENTICATION_API_BASE_URL,
-    oauthEndpoint: import.meta.env.COGNITO_USERPOOL_OAUTH_ENDPOINT,
-    clientId: import.meta.env.COGNITO_CLIENT_ID,
-    grantTokenRedirectUrl: import.meta.env.COGNITO_CLIENT_GRANT_TOKEN_REDIRECT_URL,
+    authenticationApiBaseUrl: import.meta.env.VITE_MAIN_API_BASE_URL,
+    oauthEndpoint: import.meta.env.VITE_COGNITO_USERPOOL_OAUTH_ENDPOINT,
+    clientId: import.meta.env.VITE_COGNITO_CLIENT_ID,
+    grantTokenRedirectUrl: import.meta.env.VITE_COGNITO_CLIENT_GRANT_TOKEN_REDIRECT_URL,
     Loading: Loading
 })

@@ -8,7 +8,6 @@
     -moz-osx-font-smoothing: grayscale;
     -webkit-text-size-adjust: 100%;
     font-family: 'Inter', sans-serif;
-
 }
 html,
 body {
@@ -24,6 +23,14 @@ button {
     padding: 0;
     font: inherit;
     cursor: pointer;
+    outline: inherit;
+}
+input {
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
     outline: inherit;
 }
 #root {

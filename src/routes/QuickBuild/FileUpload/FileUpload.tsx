@@ -6,10 +6,14 @@ import { PlusCircle } from "react-feather";
 import {useDropzone} from 'react-dropzone'
 import { useStateStore } from "../../../storage/useStateStore";
 import { useCreateModelDataFile } from "./hooks/useCreateModelDataFile";
+import { useThinAir } from "../../../clients/Thinair/useThinAir";
+import { convertFileToBase64 } from "./file-utils";
 
 export const FileUpload: FC = () => {
+    // State
     const selectedComponentId = useStateStore((state) => state.selectedComponentId)
-    const createModelDataFile = useCreateModelDataFile()
+    // Mutations
+    const createDataFile = useThinAir(['components', selectedComponentId!, 'data_files'], 'POST')
     // Dropzone
     const {
         getRootProps, 
@@ -19,9 +23,11 @@ export const FileUpload: FC = () => {
         isDragReject
     } = useDropzone({
         onDrop: async (acceptedFiles) => {
-            console.log(await createModelDataFile.mutateAsync(
-                acceptedFiles[0]
-            ))
+            console.log(await createDataFile.mutateAsync({
+                fileType: acceptedFiles[0].type,
+                fileName: acceptedFiles[0].name,
+                fileData: await convertFileToBase64(acceptedFiles[0])
+            }))
         },
         accept: {
             'text/csv': ['.csv']
@@ -62,22 +68,26 @@ const UploadTarget = styled.div<{
     aspectRatio: '2/1',
     borderRadius: 20,
     gap: 5,
-    border: `1px dashed ${designTokens.ColorsGray600}`,
+    border: `1px dashed ${designTokens.PrimitivesColorsGray600}`,
+    transition: 'background-color 0.2s ease-in-out',
+    ':hover': {
+        backgroundColor: designTokens.PrimitivesColorsGray200
+    },
     '>svg': {
         width: 30,
         height: 30,
-        stroke: designTokens.ColorsGray600
+        stroke: designTokens.PrimitivesColorsGray600
     },
     '>span': {
         ...designTokens.FontInputHeader,
-        color: designTokens.ColorsGray600
+        color: designTokens.PrimitivesColorsGray600
     }
 }, (props) => ({
     backgroundColor: props.isDragAccept 
-        ? designTokens.ColorsGreen200
+        ? designTokens.PrimitivesColorsGreen200
         : props.isDragReject
-        ? designTokens.ColorsRed200
+        ? designTokens.PrimitivesColorsRed200
         : props.isDragActive
-        ? designTokens.ColorsGray200
-        : designTokens.ColorsWhite,
+        ? designTokens.PrimitivesColorsGray200
+        : designTokens.PrimitivesColorsWhite,
 }))

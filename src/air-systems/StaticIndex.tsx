@@ -1,6 +1,6 @@
 import { defineStaticIndex } from "./AirStorage.configure";
 import { Archive, Box, File, Icon, Terminal } from "react-feather";
-import { BoxNode } from "../components/BoxNode";
+import { BoxNode } from "../primitives/BoxNode";
 
 
 export type ContainerNodeStaticStructure = {

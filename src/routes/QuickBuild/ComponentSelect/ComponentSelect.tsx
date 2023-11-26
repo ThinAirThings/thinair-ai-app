@@ -1,46 +1,68 @@
 import styled from "@emotion/styled";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import CreatableSelect from "react-select/creatable";
 import { stack } from "../../../styles/stackStyle";
-import { useQueryClient } from "@tanstack/react-query";
-import { useCreateComponent } from "./hooks/useCreateComponent";
-import { useComponentList } from "./hooks/useComponentList"; 
 import * as designTokens from '../../../style-dictionary-dist/variables'
 import { useStateStore } from "../../../storage/useStateStore";
+import { useThinAir } from "../../../clients/Thinair/useThinAir";
+import { reactSelectStyles } from "../../../styles/reactSelect.theme";
 
 export const ComponentSelect: FC<{}> = ({}) => {
     // Mutations
-    const createComponent = useCreateComponent()
-    const componentList = useComponentList()
-    const queryClient = useQueryClient()
-    const updateSelectedComponentId = useStateStore((state) => state.updateSelectedComponentId)
+    const createComponent = useThinAir(['components'], 'POST')
+    // Queries
+    const components = useThinAir(['components'], 'GET')
+    // State
+    const [selectedComponentId, updateSelectedComponentId] = useStateStore((state) => [
+        state.selectedComponentId, 
+        state.updateSelectedComponentId
+    ])
+    useEffect(() =>{
+        const componentIds = Object.keys(components.data.components)
+        !selectedComponentId && updateSelectedComponentId(
+            componentIds.length > 0 ? componentIds[0] : null
+        )
+    }, [components.data])
     return (
         <ComponentSelectContainer>
             <span>Create/Select Component</span>
             <CreatableSelect 
-                isClearable={true}
                 placeholder="Create or Select Component"
-                isLoading={createComponent.isPending || componentList.isFetching}
-                styles={{
-                    container: (provided) => ({
-                        ...provided,
-                        width: '100%',
-                    }),
-                }}
+                value={selectedComponentId ? {
+                    label: (components.data.components[selectedComponentId]?.componentName),
+                    value: selectedComponentId
+                } : undefined}
+                isLoading={createComponent.isPending}
+                {...reactSelectStyles}
                 onCreateOption= {(inputValue) => {
-                    createComponent.mutate(inputValue, {
-                        onSuccess: () => {
-                            queryClient.invalidateQueries({ queryKey: ['component-list'] })
+                    createComponent.mutate({
+                        componentName: inputValue
+                    }, {
+                        onSuccess: ({componentId}) => {
+                            updateSelectedComponentId(componentId)
                         }
                     })
                 }}
                 onChange={(selectedOption) => {
-                    updateSelectedComponentId(selectedOption?.value??null)
+                    if (selectedOption?.value === 'create-new-component') {
+                        createComponent.mutate({
+                            componentName: 'New Component'
+                        }, {
+                            onSuccess: ({componentId}) => {
+                                updateSelectedComponentId(componentId)
+                            }
+                        })
+                        return
+                    }
+                    updateSelectedComponentId(selectedOption?.value??'')
                 }}
-                options={componentList.data?.components.map((component) => ({
-                    label: component.componentName,
-                    value: component.componentId
-                }))}
+                options={[
+                    {label: '+ Create Component', value: 'create-new-component'},
+                    ...Object.entries(components.data.components).map(([componentId, {componentName}]) => ({
+                        label: componentName,
+                        value: componentId
+                    }))
+                ]}
             />
         </ComponentSelectContainer>
     );

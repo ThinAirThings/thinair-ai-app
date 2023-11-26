@@ -3,7 +3,7 @@ import styled from "@emotion/styled"
 
 
 type ButtonStyle = {
-    color: 'primary' | 'white' | 'black'
+    color: 'primary' | 'white' | 'black' | 'red' | 'green'
 }
 
 export const StyledButton = styled.button<ButtonStyle>({
@@ -17,26 +17,38 @@ export const StyledButton = styled.button<ButtonStyle>({
     borderRadius: '5px',
     // Font
     fontFamily: 'Inter',
-    fontSize: '18px',
+    fontSize: '14px',
     fontStyle: 'normal',
     fontWeight: 600,
     lineHeight: 'normal',
 }, ({color}) => color === "black" ? ({
-    color: designTokens.ColorsWhite,
-    backgroundColor: designTokens.ColorsBlack,
+    color: designTokens.PrimitivesColorsWhite,
+    backgroundColor: designTokens.PrimitivesColorsBlack,
     '&:hover': {
-        backgroundColor: designTokens.ColorsBlackhover
+        backgroundColor: designTokens.PrimitivesColorsBlackhover
     }
 }) : color === "white" ? ({
-    color: designTokens.ColorsBlack,
-    backgroundColor: designTokens.ColorsWhite,
+    color: designTokens.PrimitivesColorsBlack,
+    backgroundColor: designTokens.PrimitivesColorsWhite,
     '&:hover': {
-        backgroundColor: designTokens.ColorsWhitehover
+        backgroundColor: designTokens.PrimitivesColorsWhitehover
     }
-}) : ({
-    color: designTokens.ColorsOnPrimary,
-    backgroundColor: designTokens.ColorsPrimary500,
+})  : color === 'red' ? ({
+    color: designTokens.PrimitivesColorsOnPrimary,
+    backgroundColor: designTokens.PrimitivesColorsRed500,
     '&:hover': {
-        backgroundColor: designTokens.ColorsPrimary400
+        backgroundColor: designTokens.PrimitivesColorsRed600
+    }
+})  : color === 'green' ? ({
+    color: designTokens.PrimitivesColorsOnPrimary,
+    backgroundColor: designTokens.PrimitivesColorsGreen500,
+    '&:hover': {
+        backgroundColor: designTokens.PrimitivesColorsGreen400
+    }
+}) :({
+    color: designTokens.PrimitivesColorsOnPrimary,
+    backgroundColor: designTokens.PrimitivesColorsPrimary500,
+    '&:hover': {
+        backgroundColor: designTokens.PrimitivesColorsPrimary400
     }
 }))

@@ -3,31 +3,35 @@ import { FC } from "react";
 import { stack } from "../../../styles/stackStyle";
 import * as designTokens from '../../../style-dictionary-dist/variables'
 import Select from 'react-select'
-import { useStateStore } from "../../../storage/useStateStore";
-import { useDataFiles } from "./hooks/useDataFiles";
-export const FileSelect: FC = () => {
-    const selectedComponentId = useStateStore((state) => state.selectedComponentId)
-    const dataFiles = useDataFiles()
-    console.log(dataFiles.data)
-    return (
-        <>{
-            selectedComponentId && 
-            <FileSelectContainer>
-                <span>Select Files</span>
-                <Select
-                    isMulti
-                    styles={{
-                        container: (provided) => ({
-                            ...provided,
-                            width: '100%',
-                        }),
-                    }}
-                />
-            </FileSelectContainer>
+import { useThinAir } from "../../../clients/Thinair/useThinAir";
+import { reactSelectTheme } from "../../../styles/reactSelect.theme";
+export const FileSelect: FC<{
+    selectedComponentId: string
+}> = ({
+    selectedComponentId
+}) => {
+    const dataFiles = useThinAir(['components', selectedComponentId!, 'data_files'], 'GET')
+    return (<>{
+        selectedComponentId && 
+        <FileSelectContainer>
+            <span>Select Files</span>
+            <Select
+                isMulti
+                options={Object.entries(dataFiles.data.dataFiles).map(([fileId, {fileName}]) => ({
+                    label: fileName,
+                    value: fileId
+                }))}
+                styles={{
+                    container: (provided) => ({
+                        ...provided,
+                        width: '100%',
+                    }),
+                }}
+                theme={reactSelectTheme}
+            />
+        </FileSelectContainer>
 
-        }
-        </>
-    )
+    }</>)
 }
 
 

@@ -163,7 +163,7 @@
         }
       }
     },
-    "shadow-5": {
+    "elevation-5": {
       "0": {
         "type": "custom-shadow",
         "value": {
@@ -194,7 +194,7 @@
         }
       }
     },
-    "shadow-4": {
+    "elevation-4": {
       "0": {
         "type": "custom-shadow",
         "value": {
@@ -225,7 +225,7 @@
         }
       }
     },
-    "shadow-3": {
+    "elevation-3": {
       "0": {
         "type": "custom-shadow",
         "value": {
@@ -256,7 +256,7 @@
         }
       }
     },
-    "shadow-2": {
+    "elevation-2": {
       "0": {
         "type": "custom-shadow",
         "value": {
@@ -287,7 +287,7 @@
         }
       }
     },
-    "shadow-1": {
+    "elevation-1": {
       "0": {
         "type": "custom-shadow",
         "value": {
@@ -319,7 +319,7 @@
       }
     }
   },
-  "thinair-web": {
+  "primitives": {
     "colors": {
       "black": {
         "type": "color",
@@ -328,7 +328,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -344,7 +344,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -360,7 +360,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -376,7 +376,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -392,7 +392,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -408,7 +408,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -424,7 +424,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -440,7 +440,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -456,7 +456,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -472,7 +472,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -488,7 +488,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -504,7 +504,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -520,7 +520,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -536,7 +536,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -552,7 +552,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -568,7 +568,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -584,7 +584,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -600,7 +600,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -616,7 +616,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -632,7 +632,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -648,7 +648,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -664,7 +664,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -680,7 +680,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -696,7 +696,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -712,7 +712,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -728,7 +728,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -744,7 +744,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -760,7 +760,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -776,7 +776,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -792,7 +792,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -808,7 +808,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -824,7 +824,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -840,7 +840,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -856,7 +856,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -872,7 +872,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -888,7 +888,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -904,7 +904,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -920,7 +920,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -936,7 +936,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -952,7 +952,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -968,7 +968,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -984,7 +984,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -1000,7 +1000,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -1016,7 +1016,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -1032,7 +1032,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -1048,7 +1048,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -1064,7 +1064,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -1080,7 +1080,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -1096,7 +1096,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -1112,7 +1112,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -1128,7 +1128,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -1144,7 +1144,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -1160,7 +1160,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -1176,7 +1176,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -1192,7 +1192,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -1208,7 +1208,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -1224,7 +1224,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -1240,7 +1240,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -1256,7 +1256,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -1272,7 +1272,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -1288,7 +1288,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -1304,7 +1304,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -1320,7 +1320,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -1336,7 +1336,7 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -1347,11 +1347,11 @@
       },
       "on-background": {
         "type": "color",
-        "value": "{thinair-web.colors.text-primary}",
+        "value": "{primitives.colors.text-primary}",
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -1362,11 +1362,11 @@
       },
       "on-surface": {
         "type": "color",
-        "value": "{thinair-web.colors.text-default}",
+        "value": "{primitives.colors.text-default}",
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
@@ -1382,11 +1382,88 @@
         "extensions": {
           "org.lukasoppermann.figmaDesignTokens": {
             "mode": "Light",
-            "collection": "ThinAir-Web",
+            "collection": "Primitives",
             "scopes": [
               "ALL_SCOPES"
             ],
             "variableId": "VariableID:40:253",
+            "exportKey": "variables"
+          }
+        }
+      },
+      "input-border": {
+        "type": "color",
+        "value": "{primitives.colors.gray-400}",
+        "extensions": {
+          "org.lukasoppermann.figmaDesignTokens": {
+            "mode": "Light",
+            "collection": "Primitives",
+            "scopes": [
+              "ALL_SCOPES"
+            ],
+            "variableId": "VariableID:74:252",
+            "exportKey": "variables"
+          }
+        }
+      },
+      "input-border-hover": {
+        "type": "color",
+        "value": "{primitives.colors.gray-200}",
+        "extensions": {
+          "org.lukasoppermann.figmaDesignTokens": {
+            "mode": "Light",
+            "collection": "Primitives",
+            "scopes": [
+              "ALL_SCOPES"
+            ],
+            "variableId": "VariableID:89:273",
+            "exportKey": "variables"
+          }
+        }
+      }
+    },
+    "border": {
+      "radius": {
+        "type": "dimension",
+        "value": 5,
+        "extensions": {
+          "org.lukasoppermann.figmaDesignTokens": {
+            "mode": "Light",
+            "collection": "Primitives",
+            "scopes": [
+              "ALL_SCOPES"
+            ],
+            "variableId": "VariableID:74:251",
+            "exportKey": "variables"
+          }
+        }
+      },
+      "primary": {
+        "type": "color",
+        "value": "{primitives.colors.gray-400}",
+        "extensions": {
+          "org.lukasoppermann.figmaDesignTokens": {
+            "mode": "Light",
+            "collection": "Primitives",
+            "scopes": [
+              "ALL_SCOPES"
+            ],
+            "variableId": "VariableID:89:274",
+            "exportKey": "variables"
+          }
+        }
+      },
+      "primary-active": {
+        "type": "color",
+        "value": "{primitives.colors.gray-500}",
+        "extensions": {
+          "org.lukasoppermann.figmaDesignTokens": {
+            "mode": "Light",
+            "collection": "Primitives",
+            "scopes": [
+              "ALL_SCOPES"
+            ],
+            "variableId": "VariableID:89:276",
             "exportKey": "variables"
           }
         }

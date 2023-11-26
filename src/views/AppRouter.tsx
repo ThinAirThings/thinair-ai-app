@@ -4,6 +4,8 @@ import { AuthenticationProvider, ProtectedRoute } from "../air-systems/Authentic
 import { App } from "./App/App";
 import { QuickBuild } from "../routes/QuickBuild/QuickBuild";
 import { ReactQueryProvider } from "../clients/ReactQuery/ReactQueryProvider";
+import { Settings } from "../routes/Settings/Settings";
+import { InfinitySpinSuspense } from "../interface/InfinitySpinSuspense/InfinitySpinSuspense";
 
 
 const router = createBrowserRouter(
@@ -11,18 +13,21 @@ const router = createBrowserRouter(
         <Route path="*" element={
             <AuthenticationProvider>
                 <ReactQueryProvider>
-                <Routes>
-                    <Route path='/' element={
-                        <ProtectedRoute>
-                            <App/>
-                        </ProtectedRoute>
-                    }>
-                        <Route path="quick-build" element={<QuickBuild/>}>
-                            
-                        </Route>
-                    </Route>
-                    <Route path="/authentication/*" element={<AuthenticationView/>}/>
-                </Routes>
+                    <InfinitySpinSuspense width={200}>
+                        <Routes>
+                            <Route path='/' element={
+                                <ProtectedRoute>
+                                    <App/>
+                                </ProtectedRoute>
+                            }>
+                                <Route path="quick-build" element={<QuickBuild/>}/>
+                                <Route path="settings" element={
+                                    <Settings/>
+                                }/>
+                            </Route>
+                            <Route path="/authentication/*" element={<AuthenticationView/>}/>
+                        </Routes>
+                    </InfinitySpinSuspense>
                 </ReactQueryProvider>
             </AuthenticationProvider>
         }/>
