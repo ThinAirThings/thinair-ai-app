@@ -2,7 +2,6 @@ import styled from "@emotion/styled";
 import { FC, HTMLAttributes, useState } from "react";
 import { stack } from "../../styles/stackStyle";
 import * as designTokens from '../../style-dictionary-dist/variables'
-import { Button } from "@radix-ui/themes";
 
 
 export const LabeledInput: FC<{
@@ -37,7 +36,7 @@ export const LabeledInput: FC<{
                         }}
                         name={"inputValue"} 
                     />
-                    {submitButton && <Button type='submit'>Save</Button>}
+                    {/* {submitButton && <Button variant="solid" type='submit'>Save</Button>} */}
                 </InputRow>
             </form>
         </LabeledInputContainer>

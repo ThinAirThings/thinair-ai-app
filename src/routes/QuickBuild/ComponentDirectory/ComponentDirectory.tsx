@@ -1,15 +1,14 @@
 import styled from "@emotion/styled"
 import { stack } from "../../../styles/stackStyle"
-import { FC, useState } from "react"
-import * as designTokens from '../../../style-dictionary-dist/variables'
-import { ComponentSelect } from "../ComponentSelect/ComponentSelect"
-import { FileUpload } from "../FileUpload/FileUpload"
+import { Component, FC, Suspense, useState } from "react"
 import { useStateStore } from "../../../storage/useStateStore"
-import { FileSelect } from "../FileSelect/FileSelect"
-import { InfinitySpinSuspense } from "../../../interface/InfinitySpinSuspense/InfinitySpinSuspense"
 import { useThinAir } from "../../../clients/Thinair/useThinAir"
-import { Button } from "../../../primitives/Button/Button"
-import { ComponentNameInput } from "../ComponentNameInput/ComponentNameInput"
+import { Button, Flex, Select, Text, TextField } from "@radix-ui/themes"
+import { LightningBoltIcon } from "@radix-ui/react-icons"
+import { RotatingLines } from "react-loader-spinner"
+import { ComponentLoadingSpinner } from "../../../primitives/ComponentLoadingSpinner/ComponentLoadingSpinner"
+import { ComponentSelect } from "../ComponentSelect/ComponentSelect"
+import { ThinAirLoadingSpinner } from "../../../primitives/ThinAirLoadingSpinner/ThinAirLoadingSpinner"
 
 export const ComponentDirectory: FC = () => {
     // State
@@ -17,14 +16,22 @@ export const ComponentDirectory: FC = () => {
         state.selectedComponentId,
         state.updateSelectedComponentId
     ])
+
     const [buttonLoading, setButtonLoading] = useState(false)
     // Mutations
     const deleteComponent = useThinAir(['components', selectedComponentId!], 'DELETE')
     return (
         <ComponentDirectoryContainer>
-            <InfinitySpinSuspense width={200}>
+            <Suspense fallback={
+                <Flex justify={'center'} direction={'column'} width={'100%'}>
+                    <ThinAirLoadingSpinner/>
+                </Flex>
+            }>
                 <ComponentSelect/>
-                {selectedComponentId && <ComponentNameInput selectedComponentId={selectedComponentId}/>}
+            </Suspense>
+            
+                {/* <ComponentSelect/>  */}
+                {/* {selectedComponentId && <ComponentNameInput selectedComponentId={selectedComponentId}/>}
                 <InfinitySpinSuspense width={200}>
                     <FileUpload/>
                     {selectedComponentId && <FileSelect selectedComponentId={selectedComponentId}/>}
@@ -46,16 +53,20 @@ export const ComponentDirectory: FC = () => {
                         isLoading={buttonLoading}
                     >Delete Component</Button>
                     }
-                </InfinitySpinSuspense>
-            </InfinitySpinSuspense>
-        </ComponentDirectoryContainer>
+                </InfinitySpinSuspense> */}
+            {/* </InfinitySpinSuspense> */}
+            </ComponentDirectoryContainer>
     )
 }
 
-const ComponentDirectoryContainer = styled.div(stack('v', 'left', 'top'), {
+const ComponentDirectoryContainer = styled.div(stack('v', 'left', 'top'), ({theme}) => ({
     width: `352px`,
     height: `100%`,
-    borderRight: `1px solid ${designTokens.PrimitivesColorsGray400}`,
+    borderRight: `1px solid ${theme.colors.neutral[10]}`,
     padding: `24px 16px`,
     gap: 15
+}))
+
+const FullWidthSelect = styled(Select.Root)({
+    width: '100%'
 })

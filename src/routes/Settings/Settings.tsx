@@ -15,6 +15,7 @@ export const Settings: FC = () => {
     const apiKeysMutation = useThinAir(['authorize', 'api_keys'], 'POST')
     // Queries
     const apiKeys = useThinAir(['authorize', 'api_keys'], 'GET')
+    console.log(apiKeys.data)
     return (
         <SettingsContainer>
             <ApiKeysHeader>API Keys</ApiKeysHeader>
@@ -51,7 +52,7 @@ const SettingsContainer = styled.div(stack('v', 'left', 'top'), {
     gap: 10
 })
 const ApiKeysList = styled.div(stack('v', 'left', 'top'), {
-    borderRadius: designTokens.ShapeBorderRadius,
+    borderRadius: designTokens.PrimitivesBorderRadius,
     border: `1px solid ${designTokens.PrimitivesColorsGray400}`,
 })
 const ApiKeyRow = styled.div(stack('h', 'distribute', 'center'), {
@@ -66,7 +67,7 @@ const ApiKeyRow = styled.div(stack('h', 'distribute', 'center'), {
 const CopyIconContainer = styled.div<{showCheckmark: boolean}>(stack('h', 'center', 'center'), {
     width: 28,
     height: 28,
-    borderRadius: designTokens.ShapeBorderRadius,
+    borderRadius: designTokens.PrimitivesBorderRadius,
     border: `1px solid ${designTokens.PrimitivesColorsGray300}`,
     cursor: 'pointer',
     ':hover': {

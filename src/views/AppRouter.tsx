@@ -1,13 +1,18 @@
-import { Route, RouterProvider, Routes, createBrowserRouter, createRoutesFromElements } from "react-router-dom";
+import { Outlet, Route, RouterProvider, Routes, createBrowserRouter, createRoutesFromElements } from "react-router-dom";
 import { AuthenticationView } from "./AuthenticationView/AuthenticationView";
 import { AuthenticationProvider, ProtectedRoute } from "../air-systems/Authentication.configure";
-import { App } from "./App/App";
-import { QuickBuild } from "../routes/QuickBuild/QuickBuild";
 import { ReactQueryProvider } from "../clients/ReactQuery/ReactQueryProvider";
-import { Settings } from "../routes/Settings/Settings";
 import { InfinitySpinSuspense } from "../interface/InfinitySpinSuspense/InfinitySpinSuspense";
+import styled from "@emotion/styled";
+import { stack } from "../styles/stackStyle";
+import { AppNavigation } from "../interface/AppNavigation/AppNavigation";
+import { QuickBuild } from "../routes/QuickBuild/QuickBuild";
 
 
+const AppContainer = styled.div(stack('h', 'left', 'top'), {
+    width: '100%',
+    height: '100%',
+})
 const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path="*" element={
@@ -17,12 +22,19 @@ const router = createBrowserRouter(
                         <Routes>
                             <Route path='/' element={
                                 <ProtectedRoute>
-                                    <App/>
+                                    <AppContainer>
+                                        <AppNavigation/>
+                                        <Outlet/>
+                                    </AppContainer>
                                 </ProtectedRoute>
                             }>
-                                <Route path="quick-build" element={<QuickBuild/>}/>
+                                <Route path="quick-build" element={
+                                    <QuickBuild/>
+                                    // <div></div>
+                                }/>
                                 <Route path="settings" element={
-                                    <Settings/>
+                                    // <Settings/>
+                                    <div></div>
                                 }/>
                             </Route>
                             <Route path="/authentication/*" element={<AuthenticationView/>}/>
@@ -37,6 +49,8 @@ const router = createBrowserRouter(
 export const AppRouter = () => <RouterProvider
     router={router}
 />
+
+
 
 
 

@@ -1,55 +1,55 @@
 import styled from "@emotion/styled"
 import { stack } from "../../styles/stackStyle"
 import * as designTokens from '../../style-dictionary-dist/variables'
-import { Settings, Zap } from "react-feather"
 import { useState } from "react"
 import { Link, useLocation } from "react-router-dom"
-
-
+import * as NavigationMenu from "@radix-ui/react-navigation-menu"
+import { NavigationLink } from "./NavigationLink"
 
 export const AppNavigation = () => {
     const [isCollapsed, setIsCollapsed] = useState(true)
-    const {pathname} = useLocation()
     return (
-        <AppNavigationContainer 
+        <AppNavigationRoot
             isCollapsed={isCollapsed}
             onMouseOver={() => setIsCollapsed(false)}
             onMouseLeave={() => setIsCollapsed(true)}
         >
-            <HeaderAndMenuContainer>
-                <AppNavigationHeader><img src="/assets/logos/thinair-black.svg"/></AppNavigationHeader>
-                <AppNavigationMenu>
-                    <AppNavigationMenuItem 
-                        to={"/quick-build"} 
-                        isCollapsed={isCollapsed}
-                        isActive={pathname.includes('quick-build')}
-                        state={{pageTitle: 'Quick Build'}}
-                    ><Zap/><span>Quick Build</span></AppNavigationMenuItem>
-                </AppNavigationMenu> 
-            </HeaderAndMenuContainer>
-
-            <AppNavigationMenuItem
-                to={"/settings"} 
+            <img src="/assets/logos/thinair-white.svg" style={{
+                width: 34,
+                height: 'auto'
+            }}/>
+            <NavigationLink
                 isCollapsed={isCollapsed}
-                isActive={pathname.includes('settings')}
-                state={{pageTitle: 'Settings'}}
-            ><Settings/><span>Settings</span></AppNavigationMenuItem>
-        </AppNavigationContainer>
+                toPath="/quick-build"
+            />
+        </AppNavigationRoot>
+
     )
 }
 
+const AppNavigationRoot = styled.div<{isCollapsed: boolean}>(stack('v', 'left', 'top'), ({theme}) => ({
+    height: `100%`,
+    padding: `16px 12px`,
+    gap: 10,
+    borderRight: `1px solid ${theme.colors.neutral[10]}`,
+    transition: 'width 0.2s ease-in-out',
+}), ({isCollapsed}) => isCollapsed ? ({
+    width: designTokens.PrimitivesLayoutNavWidthClosed,
+}) : ({
+    width: designTokens.PrimitivesLayoutNavWidthOpen,
+}))
+
 
 const AppNavigationContainer = styled.div<{isCollapsed: boolean}>(stack('v', 'left', 'distribute'), {
-    width: 58,
     height: `100%`,
     padding: `16px 12px`,
     gap: 10,
     borderRight: `1px solid ${designTokens.PrimitivesColorsGray400}`,
     transition: 'width 0.2s ease-in-out',
 }, ({isCollapsed}) => isCollapsed ? ({
-    width: 58,
+    width: designTokens.PrimitivesLayoutNavWidthClosed,
 }) : ({
-    width: 200,
+    width: designTokens.PrimitivesLayoutNavWidthOpen,
 }))
 
 const HeaderAndMenuContainer = styled.div(stack('v', 'left', 'top'))

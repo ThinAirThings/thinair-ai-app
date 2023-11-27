@@ -1,7 +1,7 @@
 import { FC } from "react"
-import { StyledButton } from "../../styles/StyledButton"
 import { Oval } from "react-loader-spinner"
-
+import { StyledButton } from "../../styles/StyledButton"
+// import { Button as RadixButton} from "@radix-ui/themes"
 
 
 export const Button: FC<{
@@ -11,11 +11,11 @@ export const Button: FC<{
     ...props
 }) => {
     return (
-        <StyledButton {...props}>
+        <Button {...props}>
             {isLoading ? <Oval
-                height={20}
-                width={20}
+                height={16}
+                width={16}
             /> : props.children}
-        </StyledButton>
+        </Button>
     )
 }
