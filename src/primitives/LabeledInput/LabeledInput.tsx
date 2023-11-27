@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { FC, HTMLAttributes, useState } from "react";
 import { stack } from "../../styles/stackStyle";
 import * as designTokens from '../../style-dictionary-dist/variables'
-import { Button } from "../Button/Button";
+import { Button } from "@radix-ui/themes";
 
 
 export const LabeledInput: FC<{
@@ -37,7 +37,7 @@ export const LabeledInput: FC<{
                         }}
                         name={"inputValue"} 
                     />
-                    {submitButton && <Button isLoading={isUpdating} color="black" type='submit'>Save</Button>}
+                    {submitButton && <Button type='submit'>Save</Button>}
                 </InputRow>
             </form>
         </LabeledInputContainer>
