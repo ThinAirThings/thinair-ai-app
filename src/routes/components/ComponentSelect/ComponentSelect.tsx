@@ -2,8 +2,10 @@ import { FC, Suspense, useEffect, useState } from "react";
 import { useStateStore } from "../../../storage/useStateStore";
 import { useThinAir } from "../../../clients/Thinair/useThinAir";
 import { Button, Flex, Select, Text, Dialog, IconButton, TextField } from "@radix-ui/themes";
-import { Pencil1Icon } from "@radix-ui/react-icons";
+import { Pencil1Icon, Pencil2Icon } from "@radix-ui/react-icons";
 import * as Form from "@radix-ui/react-form";
+import { ComponentLoadingSpinner } from "../../../ui/components/ComponentLoadingSpinner/ComponentLoadingSpinner";
+import { LoadingButton } from "../../../ui/components/LoadingButton/LoadingButton";
 export const ComponentSelect: FC = () => {
     // Queries
     const components = useThinAir(['components'], 'GET')
@@ -24,7 +26,16 @@ export const ComponentSelect: FC = () => {
     }, [components.data])
     return (
         <Flex direction={'column'} width="100%" gap={'3'}>
-            <Text weight="bold">Component Select</Text>
+            <Flex justify={'between'} align={'stretch'}>
+                <Text weight="bold">Component Select</Text>
+                <LoadingButton
+                    highContrast
+                    size={'1'}
+                    color="gray"
+                    onClick={() => components.refetch()}
+                >+ Create New</LoadingButton>
+            </Flex>
+            
             <Flex direction={'row'} gap={'3'}>
                 <Flex direction={'column'} width={'100%'}>
                     <Select.Root value={selectedComponentId!} onValueChange={updateSelectedComponentId}>
@@ -42,7 +53,7 @@ export const ComponentSelect: FC = () => {
                 {selectedComponentId && <Dialog.Root open={dialogOpen} onOpenChange={setDialogOpen}>
                     <Dialog.Trigger>
                         <IconButton>
-                            <Pencil1Icon/>
+                            <Pencil2Icon/>
                         </IconButton>
                     </Dialog.Trigger>
                     <Dialog.Content>
@@ -78,7 +89,10 @@ export const ComponentSelect: FC = () => {
                                     </Dialog.Close>
                                     
                                     <Form.Submit asChild>
-                                        <Button>Save</Button>
+                                        <LoadingButton
+                                            isLoading={updateComponent.isPending}
+                                        >Save
+                                        </LoadingButton>
                                     </Form.Submit>
                                 </Flex>
                             </Flex>

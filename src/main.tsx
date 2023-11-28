@@ -5,7 +5,7 @@ import { enableMapSet } from 'immer'
 import { AppRouter } from './views/AppRouter';
 import { Theme } from '@radix-ui/themes';
 import { ThemeProvider } from '@emotion/react';
-import { theme } from './theme';
+import { theme } from './ui/theme';
 enableMapSet()
 // Disable right click
 window.addEventListener("contextmenu", e => e.preventDefault());
@@ -14,7 +14,7 @@ window.addEventListener("contextmenu", e => e.preventDefault());
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <Theme 
         appearance='dark'
-        panelBackground='solid'
+        panelBackground='translucent'
         accentColor="sky" 
         radius="small" 
         style={{

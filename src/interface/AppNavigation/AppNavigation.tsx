@@ -1,102 +1,98 @@
 import styled from "@emotion/styled"
-import { stack } from "../../styles/stackStyle"
 import * as designTokens from '../../style-dictionary-dist/variables'
 import { useState } from "react"
-import { Link, useLocation } from "react-router-dom"
-import * as NavigationMenu from "@radix-ui/react-navigation-menu"
-import { NavigationLink } from "./NavigationLink"
+import { Flex, Heading} from "@radix-ui/themes"
+import {Link, useLocation} from 'react-router-dom'
+import { CubeIcon, GearIcon } from "@radix-ui/react-icons"
+import { useTheme } from "@emotion/react"
 
 export const AppNavigation = () => {
     const [isCollapsed, setIsCollapsed] = useState(true)
+    const {pathname} = useLocation()
+    const theme = useTheme()
     return (
         <AppNavigationRoot
             isCollapsed={isCollapsed}
             onMouseOver={() => setIsCollapsed(false)}
             onMouseLeave={() => setIsCollapsed(true)}
         >
-            <img src="/assets/logos/thinair-white.svg" style={{
-                width: 34,
-                height: 'auto'
-            }}/>
-            <NavigationLink
-                isCollapsed={isCollapsed}
-                toPath="/quick-build"
-            />
+            <Flex width={'100%'} style={{gridColumn: '1/2', height: '24px'}} mb='5'>
+                <img src="/assets/logos/thinair-white.svg" style={{
+                    width: 34,
+                    height: 'auto'
+                }}/>
+            </Flex>
+            <NavigationLinkRow
+                to="/components"
+                isActive={pathname.includes('/components')}
+            >
+                <CubeIcon
+                    width={28}
+                    height={28}
+                />
+                <StyledNavigationText 
+                    weight={'medium'}
+                    size={'3'}
+                    isActive={pathname.includes('/components')}
+                >Components</StyledNavigationText>
+            </NavigationLinkRow>
+            <NavigationLinkRow
+                to="/settings"
+                isActive={pathname.includes('/manage')}
+                style={{gridRow: '-1'}}
+            >
+                <GearIcon
+                    width={28}
+                    height={28}
+                />
+                <StyledNavigationText 
+                    weight={'medium'}
+                    size={'3'}
+                    isActive={pathname.includes('/settings')}
+                >Settings</StyledNavigationText>
+            </NavigationLinkRow>
         </AppNavigationRoot>
 
     )
 }
 
-const AppNavigationRoot = styled.div<{isCollapsed: boolean}>(stack('v', 'left', 'top'), ({theme}) => ({
+const AppNavigationRoot = styled.div<{isCollapsed: boolean}>(({theme}) => ({
+    display: 'grid',
+    gridTemplateColumns: '35px 1fr',
+    gridTemplateRows: 'auto repeat(2, auto) 1fr',
+    alignContent: 'start',
     height: `100%`,
     padding: `16px 12px`,
     gap: 10,
-    borderRight: `1px solid ${theme.colors.neutral[10]}`,
+    borderRight: `1px solid ${theme.colors.neutralBorders7}`,
     transition: 'width 0.2s ease-in-out',
+    overflow: 'hidden'
 }), ({isCollapsed}) => isCollapsed ? ({
     width: designTokens.PrimitivesLayoutNavWidthClosed,
+    gridTemplateColumns: '35px 0',
 }) : ({
     width: designTokens.PrimitivesLayoutNavWidthOpen,
+    gridTemplateColumns: '35px 1fr',
 }))
 
-
-const AppNavigationContainer = styled.div<{isCollapsed: boolean}>(stack('v', 'left', 'distribute'), {
-    height: `100%`,
-    padding: `16px 12px`,
-    gap: 10,
-    borderRight: `1px solid ${designTokens.PrimitivesColorsGray400}`,
-    transition: 'width 0.2s ease-in-out',
-}, ({isCollapsed}) => isCollapsed ? ({
-    width: designTokens.PrimitivesLayoutNavWidthClosed,
-}) : ({
-    width: designTokens.PrimitivesLayoutNavWidthOpen,
-}))
-
-const HeaderAndMenuContainer = styled.div(stack('v', 'left', 'top'))
-const AppNavigationHeader = styled.div(stack('v', 'center', 'center'), {
-    paddingBottom: 10,
-    '>img': {
-        width: 34,
-        height: 'auto'
-    }
-})
-
-const AppNavigationMenu = styled.div(stack('v', 'center', 'top'), {
-    gap: 10
-})
-
-const AppNavigationMenuItem = styled(Link, {
-    shouldForwardProp: (prop) => 
-        prop !== 'isCollapsed' &&    // Required to prevent isCollapsed from being passed to the DOM (https://stackoverflow.com/questions/74575427/why-does-passing-custom-props-to-a-mui-styled-element-cause-a-dom-element-warnin)
-        prop !== 'isActive',
-})<{isCollapsed: boolean, isActive: boolean}>(stack('h', 'left', 'center'), {
-    padding: 6,
-    cursor: 'pointer',
-    gap: 7,
-    overflow: 'hidden',
+const NavigationLinkRow = styled(Link, {
+    shouldForwardProp: (prop) => prop !== 'isActive',
+})<{isActive: boolean}>(({theme, isActive}) => ({
+    display: 'grid',
+    gridColumn: `1/3`,
+    gridTemplateColumns: 'subgrid',
+    whiteSpace: 'nowrap',
+    placeItems: 'center',
+    justifyItems: 'start',
     '>svg': {
-        width: 24,
-        height: 24,
-        stroke: designTokens.PrimitivesColorsGray600,
-    },
-    '&:hover>svg,&:hover>span': {
-        color: designTokens.PrimitivesColorsGray800,
-        stroke: designTokens.PrimitivesColorsGray800,
-    },
-    '>span': {
-        ...designTokens.FontInputHeader,
-        whiteSpace: 'nowrap',
-        color: designTokens.PrimitivesColorsGray600,
-        transition: 'opacity 0.2s ease-in-out'
+        justifySelf: 'center',
+        color: isActive ? theme.colors.accentSolid10 : theme.colors.neutralSolid10,
     }
-}, ({isCollapsed, isActive}) => {
-    return ({
-        '>span': {
-            display: isCollapsed ? 'none' : 'block',
-            opacity: isCollapsed ? 0 : 1,
-        },
-        '>svg': {
-            stroke: isActive ? designTokens.PrimitivesColorsPrimary300 : designTokens.PrimitivesColorsGray600,
-        }
-    }) 
-})
+}))
+
+const StyledNavigationText = styled(Heading, {
+    shouldForwardProp: (prop) => prop !== 'isActive',
+})<{isActive: boolean}>(({theme, isActive}) => ({
+    color: isActive ? theme.colors.neutralText12 : theme.colors.neutralText11,
+}))
+

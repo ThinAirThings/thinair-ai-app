@@ -16,7 +16,10 @@ export const useThinAir: ThinAirApi = (path, method, params?) => {
         case "POST":
         case "DELETE": return useMutation({
             mutationFn: async (params) => {
-                return protectedFetch(`https://${import.meta.env.VITE_MAIN_API_BASE_URL}/v1/${path.join('/')}`, {
+                const apiPath = path.includes('{id}') 
+                    ? path.map((pathPart) => pathPart === '{id}' ? (params! as {id: string}).id : pathPart)
+                    : path
+                return protectedFetch(`https://${import.meta.env.VITE_MAIN_API_BASE_URL}/v1/${apiPath.join('/')}`, {
                     method,
                     body: JSON.stringify(params)
                 })
@@ -40,19 +43,20 @@ export const useThinAir: ThinAirApi = (path, method, params?) => {
 type ThinAirApi = <
     P extends [
         'authorize',
-        'api_keys'
+        'api_keys',
+        '{id}'
     ] | [
         'components', 
-        string?,
+        (string | '{id}')?,
         'data_files'?,
     ],
     M extends P extends ['authorize', 'api_keys']
     ? 'POST' | 'GET'
     : P extends ['components']
     ? 'POST' | 'GET'
-    : P extends ['components', string]
+    : P extends ['components', '{id}'|string]
     ? 'POST' | 'GET' | 'DELETE'
-    : P extends ['components', string, 'data_files']
+    : P extends ['components', '{id}'|string, 'data_files']
     ? 'POST' | 'GET'
     : never,
     IO extends [P, M] extends [['authorize', 'api_keys'], 'POST']
@@ -75,8 +79,9 @@ type ThinAirApi = <
                 componentName: string
             }>
         }]
-        : [P, M] extends [['components', string], 'POST']
+        : [P, M] extends [['components', '{id}'], 'POST']
         ? [[{
+            id: string,
             componentName: string
         }], {
             success: boolean
@@ -85,17 +90,19 @@ type ThinAirApi = <
         ? [[], {
             component: {
                 componentName: string,
-                componentId: string,
                 dataFiles: Record<string, {
                     fileType: string,
                     fileName: string,
                 }>
             }
         }]
-        : [P, M] extends [['components', string], 'DELETE']
-        ? [[], {}]
-        : [P, M] extends [['components', string, 'data_files'], 'POST']
+        : [P, M] extends [['components', '{id}'], 'DELETE']
         ? [[{
+            id: string
+        }], {}]
+        : [P, M] extends [['components', '{id}', 'data_files'], 'POST']
+        ? [[{
+            id: string,
             fileType: string,
             fileName: string,
             fileData: string

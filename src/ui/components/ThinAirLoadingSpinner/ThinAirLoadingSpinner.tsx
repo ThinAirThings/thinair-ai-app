@@ -12,8 +12,8 @@ export const ThinAirLoadingSpinner:FC<
     return (
         <Flex position={'relative'} align={'center'} justify={'center'}>
             <Oval
-                color={theme.colors.accent[10]}
-                secondaryColor={theme.colors.neutral[10]}
+                color={theme.colors.accentSolid10}
+                secondaryColor={theme.colors.neutralSolid10}
                 height={75}
                 width={75}
                 strokeWidth="2"

@@ -6,7 +6,7 @@ import { InfinitySpinSuspense } from "../interface/InfinitySpinSuspense/Infinity
 import styled from "@emotion/styled";
 import { stack } from "../styles/stackStyle";
 import { AppNavigation } from "../interface/AppNavigation/AppNavigation";
-import { QuickBuild } from "../routes/QuickBuild/QuickBuild";
+import { Components } from "../routes/components/Components";
 
 
 const AppContainer = styled.div(stack('h', 'left', 'top'), {
@@ -20,7 +20,7 @@ const router = createBrowserRouter(
                 <ReactQueryProvider>
                     <InfinitySpinSuspense width={200}>
                         <Routes>
-                            <Route path='/' element={
+                            <Route path='/*' element={
                                 <ProtectedRoute>
                                     <AppContainer>
                                         <AppNavigation/>
@@ -28,8 +28,8 @@ const router = createBrowserRouter(
                                     </AppContainer>
                                 </ProtectedRoute>
                             }>
-                                <Route path="quick-build" element={
-                                    <QuickBuild/>
+                                <Route path="components" element={
+                                    <Components/>
                                     // <div></div>
                                 }/>
                                 <Route path="settings" element={
