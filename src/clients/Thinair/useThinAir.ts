@@ -6,6 +6,7 @@ import { useAuthentication } from "../../air-systems/Authentication.configure"
 export const useThinAir: ThinAirApi = (path, method, params?) => {
     const {protectedFetch} = useAuthentication()
     const queryClient = useQueryClient()
+
     switch (method) {
         case "GET": return useSuspenseQuery({
             queryKey: [...path, method, params],
@@ -24,13 +25,16 @@ export const useThinAir: ThinAirApi = (path, method, params?) => {
                     body: JSON.stringify(params)
                 })
             },
-            onSuccess: () => {
+            onSuccess: (_, params) => {
+                const apiPath = path.includes('{id}') 
+                    ? path.map((pathPart) => pathPart === '{id}' ? (params! as {id: string}).id : pathPart)
+                    : path
                 if (method === 'DELETE') {
-                    queryClient.invalidateQueries({queryKey: [...path.slice(0, -1), 'GET']})
+                    queryClient.invalidateQueries({queryKey: [...apiPath.slice(0, -1), 'GET']})
                 }
                 if (method === 'POST') {
-                    queryClient.invalidateQueries({queryKey: [...path, 'GET']})
-                    queryClient.invalidateQueries({queryKey: [...path.slice(0, -1), 'GET']})
+                    queryClient.invalidateQueries({queryKey: [...apiPath, 'GET']})
+                    queryClient.invalidateQueries({queryKey: [...apiPath.slice(0, -1), 'GET']})
                 }
             }
         })
@@ -114,6 +118,7 @@ type ThinAirApi = <
             dataFiles: Record<string, {
                 fileType: string,
                 fileName: string,
+                include: boolean
             }>
         }]
         : never

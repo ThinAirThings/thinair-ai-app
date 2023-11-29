@@ -1,35 +1,55 @@
 import styled from "@emotion/styled"
 import { stack } from "../../../styles/stackStyle"
 import { FC, Suspense, useState } from "react"
-import { useStateStore } from "../../../storage/useStateStore"
-import { useThinAir } from "../../../clients/Thinair/useThinAir"
 import { ContextMenu, Dialog, Flex, Text } from "@radix-ui/themes"
 import { ThinAirLoadingSpinner } from "../../../ui/components/ThinAirLoadingSpinner/ThinAirLoadingSpinner"
 import { LoadingButton } from "../../../ui/components/LoadingButton/LoadingButton"
 import { ComponentList } from "./ComponentList"
 import { CreateComponentDialog } from "./CreateComponentDialog"
 import { ExtractComponentParameters } from "../../../ui/helpers/extract-component-parameters"
+import { useStateStore } from "../../../storage/useStateStore"
+import { PanelSlider } from "../../../interface/PanelSlider/PanelSlider"
 
 export const ComponentDirectory: FC<ExtractComponentParameters<typeof ComponentDirectoryRoot>> = ({...props}) => {
     // State
-    const [selectedComponentId, updateSelectedComponentId] = useStateStore((state) => [
-        state.selectedComponentId,
-        state.updateSelectedComponentId
-    ])
-
-    // State
     const [createComponentDialogOpen, setCreateComponentDialogOpen] = useState(false);
-
+    const [
+        leftPanelWidth,
+        updateLeftPanelWidth
+    ] = useStateStore(state => [
+        state.leftPanelWidth,
+        state.updateLeftPanelWidth
+    ])
+    const [directoryRef, setDirectoryRef] = useState<HTMLDivElement | null>(null)
     return (
-        <ComponentDirectoryRoot {...props}>
+        <ComponentDirectoryRoot 
+            ref={setDirectoryRef}
+            {...props}
+        >
+            <PanelSlider 
+                orientation="vertical"
+                location="end"
+                sliderGroup={1}
+                referenceContainer={directoryRef}
+                sliderControlledDimension={leftPanelWidth}
+                setSliderControlledDimension={updateLeftPanelWidth}
+            />
             <Suspense fallback={
                 <Flex justify={'center'} direction={'column'} width={'100%'}>
                     <ThinAirLoadingSpinner/>
                 </Flex>
             }>
                 <CreateComponentDialog dialogState={[createComponentDialogOpen, setCreateComponentDialogOpen]}/>
-                <Flex justify={'between'} align={'stretch'} width={'100%'}>
-                    <Text weight="bold">Component Directory</Text>
+                <Flex justify={'between'} align={'stretch'} width={'100%'} css={{
+                    '@container directory (max-width: 200px)': {
+                        justifyContent: 'flex-end'
+                    },
+                }}>
+                    <Text weight="bold" size={'3'} css={{
+                        '@container directory (max-width: 200px)': {
+                            display: 'none'
+                        },
+                    }}>Component Directory</Text>
                     <LoadingButton
                         highContrast
                         size={'1'}
@@ -58,7 +78,9 @@ export const ComponentDirectory: FC<ExtractComponentParameters<typeof ComponentD
 }
 
 const ComponentDirectoryRoot = styled.div(stack('v', 'left', 'top'), ({theme}) => ({
-    width: `352px`,
+    containerName: 'directory',
+    containerType: 'inline-size',
+    position: `relative`,
     height: `100%`,
     borderRight: `1px solid ${theme.colors.neutral10}`,
     padding: `24px 16px`,

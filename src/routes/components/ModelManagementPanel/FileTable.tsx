@@ -23,12 +23,19 @@ export const FileTable = () => {
                 </Table.Row>
             </Table.Header>
             <Suspense fallback={
-                <Flex direction={'column'} justify={'center'} align={'center'}>
-                    <RotatingLines
-                        strokeColor={theme.colors.neutralContrast}
-                        width={'30'}
-                    />
-                </Flex>
+                <Table.Body>
+                    <Table.Row>
+                        {Array.from({length: 4}).map((_, i) => (
+                            <Table.Cell key={i}>
+                                <RotatingLines
+                                    strokeColor={theme.colors.neutralContrast}
+                                    width={'16'}
+                                />
+                            </Table.Cell>
+                        ))}
+                    </Table.Row>
+                </Table.Body>  
+
             }>
                 {selectedComponentId && <FileTableBody selectedComponentId={selectedComponentId}/>}
             </Suspense>
@@ -43,13 +50,16 @@ const FileTableBody: FC<{
 }) => {
     
     const dataFiles = useThinAir(['components', selectedComponentId, 'data_files'], 'GET')
+    console.log(dataFiles.data.dataFiles)
     return (
         <Table.Body>
             {Object.entries(dataFiles.data.dataFiles).map(([fileId, {fileName, fileType}]) => (
                 <Table.Row key={fileId}>
                     <Table.Cell>{fileName}</Table.Cell>
                     <Table.Cell><Badge color="yellow" radius='full'>{fileType}</Badge></Table.Cell>
-                    <Table.Cell><Switch radius="full"/></Table.Cell>
+                    <Table.Cell><Switch radius="full"
+                        defaultChecked={true} 
+                    /></Table.Cell>
                     <Table.Cell>
                         <LoadingButton variant="outline" color="red">
                             <TrashIcon/>

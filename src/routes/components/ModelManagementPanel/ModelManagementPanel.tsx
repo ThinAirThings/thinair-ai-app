@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
-import { Box, Button, Flex, Heading, Tabs } from "@radix-ui/themes";
-import { FC } from "react";
+import { Box, Flex, Heading, Tabs } from "@radix-ui/themes";
+import { FC, useState } from "react";
 import { ExtractComponentParameters } from "../../../ui/helpers/extract-component-parameters";
 import { FileTable } from "./FileTable";
 import { SystemPrompt } from "./SystemPrompt";
@@ -10,12 +10,24 @@ import { useDropzone } from "react-dropzone";
 import { useThinAir } from "../../../clients/Thinair/useThinAir";
 import { convertFileToBase64 } from "../FileUpload/file-utils";
 import { LoadingButton } from "../../../ui/components/LoadingButton/LoadingButton";
-
+import { PanelSlider } from "../../../interface/PanelSlider/PanelSlider";
 
 
 export const ModelManagementPanel: FC<ExtractComponentParameters<typeof ModelManagementPanelRoot>> = ({...props}) => {
     // State
     const selectedComponentId = useStateStore((state) => state.selectedComponentId)
+    const [
+        leftPanelWidth,
+        bottomPanelHeight,
+        updateLeftPanelWidth,
+        updateBottomPanelHeight
+    ] = useStateStore(state => [
+        state.leftPanelWidth,
+        state.bottomPanelHeight,
+        state.updateLeftPanelWidth,
+        state.updateBottomPanelHeight
+    ])
+    const [panelRef, setPanelRef] = useState<HTMLDivElement | null>(null)
     // Mutations
     const createDataFile = useThinAir(['components', '{id}', 'data_files'], 'POST')
     const {
@@ -29,6 +41,10 @@ export const ModelManagementPanel: FC<ExtractComponentParameters<typeof ModelMan
                 fileType: acceptedFiles[0].type,
                 fileName: acceptedFiles[0].name,
                 fileData: await convertFileToBase64(acceptedFiles[0])
+            }, {
+                onSuccess: () => {
+                    createDataFile.reset()
+                }
             })
         },
         accept: {
@@ -38,7 +54,30 @@ export const ModelManagementPanel: FC<ExtractComponentParameters<typeof ModelMan
     return (
         <>
             <input {...getInputProps()} />
-            <ModelManagementPanelRoot {...props} direction={'column'}>
+            <ModelManagementPanelRoot 
+                ref={setPanelRef}
+                {...props} direction={'column'}
+            >
+                <PanelSlider
+                    orientation="horizontal"
+                    location="start"
+                    sliderGroup={1}
+                    referenceContainer={panelRef}
+                    sliderControlledDimension={bottomPanelHeight}
+                    setSliderControlledDimension={updateBottomPanelHeight}
+                />
+                <PanelSlider
+                    orientation="horizontal"
+                    location="start"
+                    sliderGroup={1}
+                    joint
+                    referenceContainer={panelRef}
+                    sliderControlledDimension={[leftPanelWidth, bottomPanelHeight]}
+                    setSliderControlledDimension={(value: [number, number]) => {
+                        updateLeftPanelWidth(value[0])
+                        updateBottomPanelHeight(value[1])
+                    }}
+                />
                 <Heading size={'3'}>Model Management</Heading>
                 <Tabs.Root defaultValue="fileTable" css={{height: "100%"}}>
                     <Tabs.List>
@@ -76,6 +115,7 @@ export const ModelManagementPanel: FC<ExtractComponentParameters<typeof ModelMan
 }
 
 const ModelManagementPanelRoot = styled(Flex)(({theme}) => ({
+    position: 'relative',
     gap: 3,
     padding: 10,
     width: '100%',
