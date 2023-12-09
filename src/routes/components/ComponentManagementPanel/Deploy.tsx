@@ -3,6 +3,7 @@ import { useStateStore } from "../../../storage/useStateStore"
 
 export const Deploy = () => {
     const selectedComponentId = useStateStore(state => state.selectedComponentId)
+    const componentTheme = useStateStore(state => state.componentTheme);
     return (
         <Card mt='6'>
             <Inset>
@@ -22,7 +23,7 @@ export const Deploy = () => {
                             <Code variant="ghost" >
                                 {`
                                 <iframe 
-                                    src="https://intelligent-search.dev.thinair.cloud/?componentId=${selectedComponentId}"
+                                    src="https://intelligent-search.dev.thinair.cloud/?componentId=${selectedComponentId}&accent-color=${componentTheme.accentColor}&mode=${componentTheme.mode}"
                                     style="border: none; width: 420px; height: 150px;"
                                 ></iframe>
                                 `}

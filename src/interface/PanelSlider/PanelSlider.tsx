@@ -8,7 +8,6 @@ export const PanelSlider = <J extends boolean>({
     location,
     joint,
     sliderGroup,
-    referenceContainer,
     sliderControlledDimension,
     setSliderControlledDimension
 }: {
@@ -16,7 +15,6 @@ export const PanelSlider = <J extends boolean>({
     location: 'start' | 'end'
     joint?: J
     sliderGroup: number
-    referenceContainer: HTMLDivElement | null;
     sliderControlledDimension: J extends true ? [number, number] : number
     setSliderControlledDimension: (
         value: J extends true ? [number, number] : number
@@ -28,7 +26,6 @@ export const PanelSlider = <J extends boolean>({
         orientation,
         location,
         joint??false,
-        referenceContainer,
         sliderRef, 
         sliderControlledDimension,
         setSliderControlledDimension

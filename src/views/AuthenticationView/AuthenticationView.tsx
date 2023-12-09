@@ -17,8 +17,8 @@ export const AuthenticationView: FC = () => {
             <AuthBlock>
                 <img className="logo" src="/assets/logos/thinair-full-white.svg"/>
                 <ButtonRow>
-                    <ButtonLink color="white" href={import.meta.env.VITE_COGNITO_CLIENT_HOSTEDUI_URL_SIGN_IN} >Sign in</ButtonLink>
-                    <ButtonLink color="white" href={import.meta.env.VITE_COGNITO_CLIENT_HOSTEDUI_URL_SIGN_IN}>Register</ButtonLink>
+                    <ButtonLink color="white" href={import.meta.env.VITE_COGNITO_CLIENT_HOSTEDUI_URL_SIGN_IN}>Sign in</ButtonLink>
+                    <ButtonLink color="white" href={import.meta.env.VITE_COGNITO_CLIENT_HOSTEDUI_URL_SIGN_IN.replace('login', 'signup')}>Register</ButtonLink>
                 </ButtonRow>
             </AuthBlock>
         </FullScreen>

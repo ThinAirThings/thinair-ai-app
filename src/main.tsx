@@ -3,7 +3,7 @@ import './global.css'
 import '@radix-ui/themes/styles.css';
 import { enableMapSet } from 'immer'
 import { AppRouter } from './views/AppRouter';
-import { Theme } from '@radix-ui/themes';
+import { Theme, ThemePanel } from '@radix-ui/themes';
 import { ThemeProvider } from '@emotion/react';
 import { theme } from './ui/theme';
 enableMapSet()
@@ -11,14 +11,14 @@ enableMapSet()
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <Theme 
         appearance='dark'
-        panelBackground='translucent'
+        panelBackground='solid'
         accentColor="sky" 
         radius="small" 
         style={{
             height: '100vh'
         }}
     >
-        
+        {/* <ThemePanel/>  */}
         <ThemeProvider 
             // @ts-ignore
             theme={theme}

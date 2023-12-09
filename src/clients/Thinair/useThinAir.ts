@@ -6,8 +6,8 @@ import { useAuthentication } from "../../air-systems/Authentication.configure"
 export const useThinAir: ThinAirApi = (path, method, params?) => {
     const {protectedFetch} = useAuthentication()
     const queryClient = useQueryClient()
-
     switch (method) {
+        // NOTE: You need to add a schema check here and add missing properties if necessary
         case "GET": return useSuspenseQuery({
             queryKey: [...path, method, params],
             queryFn: async () => {
@@ -17,24 +17,18 @@ export const useThinAir: ThinAirApi = (path, method, params?) => {
         case "POST":
         case "DELETE": return useMutation({
             mutationFn: async (params) => {
-                const apiPath = path.includes('{id}') 
-                    ? path.map((pathPart) => pathPart === '{id}' ? (params! as {id: string}).id : pathPart)
-                    : path
-                return protectedFetch(`https://${import.meta.env.VITE_MAIN_API_BASE_URL}/v1/${apiPath.join('/')}`, {
+                return protectedFetch(`https://${import.meta.env.VITE_MAIN_API_BASE_URL}/v1/${path.join('/')}`, {
                     method,
                     body: JSON.stringify(params)
                 })
             },
-            onSuccess: (_, params) => {
-                const apiPath = path.includes('{id}') 
-                    ? path.map((pathPart) => pathPart === '{id}' ? (params! as {id: string}).id : pathPart)
-                    : path
+            onSuccess: () => {
                 if (method === 'DELETE') {
-                    queryClient.invalidateQueries({queryKey: [...apiPath.slice(0, -1), 'GET']})
+                    queryClient.invalidateQueries({queryKey: [...path.slice(0, -1), 'GET']})
                 }
                 if (method === 'POST') {
-                    queryClient.invalidateQueries({queryKey: [...apiPath, 'GET']})
-                    queryClient.invalidateQueries({queryKey: [...apiPath.slice(0, -1), 'GET']})
+                    queryClient.invalidateQueries({queryKey: [...path, 'GET']})
+                    queryClient.invalidateQueries({queryKey: [...path.slice(0, -1), 'GET']})
                 }
             }
         })
@@ -47,21 +41,23 @@ export const useThinAir: ThinAirApi = (path, method, params?) => {
 type ThinAirApi = <
     P extends [
         'authorize',
-        'api_keys',
-        '{id}'
+        'api_keys'
     ] | [
         'components', 
-        (string | '{id}')?,
+        string?,
         'data_files'?,
+        string?
     ],
     M extends P extends ['authorize', 'api_keys']
     ? 'POST' | 'GET'
     : P extends ['components']
     ? 'POST' | 'GET'
-    : P extends ['components', '{id}'|string]
+    : P extends ['components', string]
     ? 'POST' | 'GET' | 'DELETE'
-    : P extends ['components', '{id}'|string, 'data_files']
+    : P extends ['components', string, 'data_files']
     ? 'POST' | 'GET'
+    : P extends ['components', string, 'data_files', string]
+    ? 'POST' | 'DELETE' | 'GET'
     : never,
     IO extends [P, M] extends [['authorize', 'api_keys'], 'POST']
         ? [[], {
@@ -83,9 +79,8 @@ type ThinAirApi = <
                 componentName: string
             }>
         }]
-        : [P, M] extends [['components', '{id}'], 'POST']
+        : [P, M] extends [['components', string], 'POST']
         ? [[{
-            id: string,
             componentName: string
         }], {
             success: boolean
@@ -94,19 +89,18 @@ type ThinAirApi = <
         ? [[], {
             component: {
                 componentName: string,
+                componentId: string,
                 dataFiles: Record<string, {
                     fileType: string,
                     fileName: string,
+                    include: boolean
                 }>
             }
         }]
-        : [P, M] extends [['components', '{id}'], 'DELETE']
+        : [P, M] extends [['components', string], 'DELETE']
+        ? [[], {}]
+        : [P, M] extends [['components', string, 'data_files'], 'POST']
         ? [[{
-            id: string
-        }], {}]
-        : [P, M] extends [['components', '{id}', 'data_files'], 'POST']
-        ? [[{
-            id: string,
             fileType: string,
             fileName: string,
             fileData: string
@@ -121,6 +115,14 @@ type ThinAirApi = <
                 include: boolean
             }>
         }]
+        : [P, M] extends [['components', string, 'data_files', string], 'POST']
+        ? [[{
+            include: boolean
+        }], {
+            message: string
+        }]
+        : [P, M] extends [['components', string, 'data_files', string], 'DELETE']
+        ? [[], {}]
         : never
 >(
     path: P, 

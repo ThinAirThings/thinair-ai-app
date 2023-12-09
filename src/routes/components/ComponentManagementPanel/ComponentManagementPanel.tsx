@@ -22,16 +22,12 @@ export const ComponentManagementPanel: FC<
             }}>
                 <Tabs.List>
                     <Tabs.Trigger value="develop">Develop</Tabs.Trigger>
-                    {/* <Tabs.Trigger value="preview">Preview</Tabs.Trigger> */}
                     <Tabs.Trigger value="deploy">Deploy</Tabs.Trigger>
                     <Tabs.Trigger value="monitor">Monitor</Tabs.Trigger>
                 </Tabs.List>
                 <Tabs.Content value="develop" css={{height: '100%'}}>
                     <Develop/>
                 </Tabs.Content>
-                {/* <Tabs.Content value="preview" css={{height: '100%'}}>
-                    <Preview/>
-                </Tabs.Content> */}
                 <Tabs.Content value="deploy" css={{height: '100%'}}>
                     <Deploy/>
                 </Tabs.Content>

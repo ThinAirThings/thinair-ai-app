@@ -1,5 +1,5 @@
 import styled from "@emotion/styled"
-import { ContextMenu, Flex, IconButton, Table, Text, TextField } from "@radix-ui/themes"
+import { ContextMenu, Table, Text, TextField } from "@radix-ui/themes"
 import classNames from "classnames"
 import { FC, useEffect, useRef, useState } from "react"
 import { useStateStore } from "../../../storage/useStateStore"
@@ -8,7 +8,6 @@ import { RotatingLines } from "react-loader-spinner"
 import { useTheme } from "@emotion/react"
 import { fromEvent } from "rxjs"
 import * as Form from "@radix-ui/react-form";
-import { Pencil2Icon } from "@radix-ui/react-icons"
 
 
 
@@ -32,8 +31,8 @@ export const ComponentRow: FC<{
         isRenameActive && inputRef.current?.focus()
     }, [isRenameActive])
     // Mutations
-    const updateComponent = useThinAir(['components', '{id}'], 'POST')
-    const deleteComponent = useThinAir(['components', '{id}'], 'DELETE')
+    const updateComponent = useThinAir(['components', selectedComponentId??''], 'POST')
+    const deleteComponent = useThinAir(['components', selectedComponentId??''], 'DELETE')
     // Effects
     useEffect(() => {
         if (!isRenameActive) return
@@ -77,10 +76,7 @@ export const ComponentRow: FC<{
                                 const data = Object.fromEntries(new FormData(event.currentTarget)) as {
                                     componentName: string
                                 }
-                                await updateComponent.mutateAsync({
-                                    id: componentId,
-                                    ...data
-                                })
+                                await updateComponent.mutateAsync(data)
                                 setIsRenameActive(false)
                             }}>
                                 <Form.Field name="componentName" asChild>
@@ -122,9 +118,7 @@ export const ComponentRow: FC<{
                 <ContextMenu.Separator/>
                 <ContextMenu.Item 
                     color={'red'} 
-                    onSelect={() => deleteComponent.mutate({
-                        id: componentId
-                    })}
+                    onSelect={() => deleteComponent.mutate(undefined)}
                 >
                     {`Delete ${componentName}`}
                 </ContextMenu.Item>

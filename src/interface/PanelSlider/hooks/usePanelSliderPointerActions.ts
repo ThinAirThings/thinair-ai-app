@@ -6,14 +6,13 @@ export const usePanelSliderPointerActions = (
     orientation: 'vertical' | 'horizontal',
     location: 'start' | 'end',
     joint: boolean,
-    referenceContainer: HTMLDivElement | null,
     target: HTMLDivElement | null,
     sliderControlledDimension: [number, number] | number,
     setter: (value: [number, number] | number
     ) => void
 ) => {
     useEffect(() => {
-        if (!target || !referenceContainer) return
+        if (!target) return
         const subscription = fromEvent<PointerEvent>(target, 'pointerdown')
         .subscribe((event) => {
             // Pointer Down
@@ -44,18 +43,18 @@ export const usePanelSliderPointerActions = (
                     }
                 }
                 if (orientation === 'horizontal' && location === 'end') {
-                    setter(pointerMovePoint.y - referenceContainer.getBoundingClientRect().top)
+                    setter((initialDimensions as number) - (pointerMovePoint.y - pointerDownPoint.y))
                 }
                 if (orientation === 'vertical' && location === 'start') {
-                    setter( referenceContainer.getBoundingClientRect().right - pointerMovePoint.x )
+                    setter( (initialDimensions as number) + (pointerMovePoint.x - pointerDownPoint.x) )
                 }
                 if (orientation === 'vertical' && location === 'end') {
-                    setter(pointerMovePoint.x - referenceContainer.getBoundingClientRect().left)
+                    setter((initialDimensions as number) + (pointerMovePoint.x - pointerDownPoint.x))
                 }
             })
         })
         return () => {
             subscription.unsubscribe()
         }
-    }, [target, referenceContainer, sliderControlledDimension])
+    }, [target, sliderControlledDimension])
 }

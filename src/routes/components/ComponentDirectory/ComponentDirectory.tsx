@@ -1,7 +1,7 @@
 import styled from "@emotion/styled"
 import { stack } from "../../../styles/stackStyle"
 import { FC, Suspense, useState } from "react"
-import { ContextMenu, Dialog, Flex, Text } from "@radix-ui/themes"
+import { ContextMenu, Flex, Text } from "@radix-ui/themes"
 import { ThinAirLoadingSpinner } from "../../../ui/components/ThinAirLoadingSpinner/ThinAirLoadingSpinner"
 import { LoadingButton } from "../../../ui/components/LoadingButton/LoadingButton"
 import { ComponentList } from "./ComponentList"
@@ -20,17 +20,14 @@ export const ComponentDirectory: FC<ExtractComponentParameters<typeof ComponentD
         state.leftPanelWidth,
         state.updateLeftPanelWidth
     ])
-    const [directoryRef, setDirectoryRef] = useState<HTMLDivElement | null>(null)
     return (
         <ComponentDirectoryRoot 
-            ref={setDirectoryRef}
             {...props}
         >
             <PanelSlider 
                 orientation="vertical"
                 location="end"
                 sliderGroup={1}
-                referenceContainer={directoryRef}
                 sliderControlledDimension={leftPanelWidth}
                 setSliderControlledDimension={updateLeftPanelWidth}
             />
