@@ -1,27 +1,25 @@
-import { Flex } from "@radix-ui/themes"
+import { Button, Flex } from "@radix-ui/themes"
 import { useStateStore } from "../../../storage/useStateStore"
 import { ThemeSelector } from "./ThemeSelector";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { fromEvent } from "rxjs";
+import { EyeClosedIcon, EyeOpenIcon } from "@radix-ui/react-icons";
 
 
 export const Develop = () => {
     // State
+    const [showThemeSelector, setShowThemeSelector] = useState(true)
     const selectedComponentId = useStateStore(state => state.selectedComponentId);
     const componentTheme = useStateStore(state => state.componentTheme);
     useEffect(() => {
-        const iframeSubscription = fromEvent<MessageEvent>(window, 'message').subscribe((event) => {
-            console.log(event.data)
-        })
         const keyboardSubscription = fromEvent<KeyboardEvent>(window, 'keydown').subscribe((event) => {
             if (event.key === 'Escape') {
                 window.postMessage({
                     method: 'closeResults'
-                }, 'http://localhost:5174')
+                }, 'https://intelligent-search.dev.thinair.cloud')
             }
         })
         return () => {
-            iframeSubscription.unsubscribe()
             keyboardSubscription.unsubscribe()
         }
     }, [])
@@ -35,14 +33,26 @@ export const Develop = () => {
             css={(theme) => ({
                 padding: `0px 20% 0px 20%`,
                 backgroundColor: componentTheme.mode === 'dark' ? theme.colors.neutral1 : 'white',
+                overflow: 'hidden'
             })}
             justify={'center'}
             align={'center'}
         >
-            <ThemeSelector/>
+            <Button 
+                variant="outline"
+                color='orange'
+                style={{
+                    position: 'absolute',
+                    top: 10,
+                    right: 10
+                }}
+                onClick={() => setShowThemeSelector(showThemeSelector => !showThemeSelector)}
+            >
+                {<>{showThemeSelector ? <EyeOpenIcon/>:<EyeClosedIcon/>}Toggle Theme Selector</>}
+            </Button>
+            {showThemeSelector && <ThemeSelector/>}
             <iframe 
-
-                src={`http://localhost:5174/?componentId=${selectedComponentId}&accent-color=${componentTheme.accentColor}&mode=${componentTheme.mode}`} 
+                src={`https://intelligent-search.dev.thinair.cloud/?componentId=${selectedComponentId}&accent-color=${componentTheme.accentColor}&mode=${componentTheme.mode}`} 
                 style={{
                     width: '100%',
                     height: 'auto',

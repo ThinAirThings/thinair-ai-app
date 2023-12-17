@@ -1,5 +1,5 @@
 import styled from "@emotion/styled"
-import { Flex, Heading, Tabs } from "@radix-ui/themes"
+import { Flex, Heading, Tabs, Text } from "@radix-ui/themes"
 import { FC } from "react"
 import { ExtractComponentParameters } from "../../../ui/helpers/extract-component-parameters"
 import { Develop } from "./Develop"
@@ -15,6 +15,7 @@ export const ComponentManagementPanel: FC<
             {...props}
         >
             <Heading size={'3'}>Component Management</Heading>
+            <Text color='red'>Thin Air is under active development. Some things may not work as expected! Stable version incoming soon!</Text>
             <Tabs.Root defaultValue="develop" css={{
                 display: "flex",
                 flexDirection: "column",

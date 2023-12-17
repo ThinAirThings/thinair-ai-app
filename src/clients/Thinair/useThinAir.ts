@@ -45,8 +45,11 @@ type ThinAirApi = <
     ] | [
         'components', 
         string?,
-        'data_files'?,
-        string?
+        ...(
+            | ['data_files'?, string?]
+            | ['vecdb'?]
+            | ['task'?, string?]
+        ),
     ],
     M extends P extends ['authorize', 'api_keys']
     ? 'POST' | 'GET'
@@ -58,6 +61,10 @@ type ThinAirApi = <
     ? 'POST' | 'GET'
     : P extends ['components', string, 'data_files', string]
     ? 'POST' | 'DELETE' | 'GET'
+    : P extends ['components', string, 'vecdb']
+    ? 'POST' | 'GET'
+    : P extends ['components', string, 'vecdb', 'status']
+    ? 'GET'
     : never,
     IO extends [P, M] extends [['authorize', 'api_keys'], 'POST']
         ? [[], {
@@ -76,12 +83,16 @@ type ThinAirApi = <
         : [P, M] extends [['components'], 'GET']
         ? [[], {
             components: Record<string, {
-                componentName: string
+                componentName: string,
+                systemPrompt?: string
             }>
         }]
         : [P, M] extends [['components', string], 'POST']
         ? [[{
-            componentName: string
+            updates: {
+                componentName?: string
+                systemPrompt?: string
+            }
         }], {
             success: boolean
         }]
@@ -90,6 +101,7 @@ type ThinAirApi = <
             component: {
                 componentName: string,
                 componentId: string,
+                systemPrompt?: string,
                 dataFiles: Record<string, {
                     fileType: string,
                     fileName: string,
@@ -123,6 +135,19 @@ type ThinAirApi = <
         }]
         : [P, M] extends [['components', string, 'data_files', string], 'DELETE']
         ? [[], {}]
+        : [P, M] extends [['components', string, 'vecdb'], 'POST']
+        ? [[{
+            fileData: string
+            subset: string[]
+            displayFormat: string
+        }], {
+            task_id: string
+        }]
+        : [P, M] extends [['components', string, 'task', string], 'GET']
+        ? [[], {
+            task_id: string
+            status: string
+        }]
         : never
 >(
     path: P, 

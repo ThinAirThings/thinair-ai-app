@@ -7,6 +7,8 @@ import styled from "@emotion/styled";
 import { stack } from "../styles/stackStyle";
 import { AppNavigation } from "../interface/AppNavigation/AppNavigation";
 import { Components } from "../routes/components/Components";
+import { Home } from "../routes/home/Home";
+import { Settings } from "../routes/settings/Settings";
 
 
 const AppContainer = styled.div(stack('h', 'left', 'top'), {
@@ -28,13 +30,15 @@ const router = createBrowserRouter(
                                     </AppContainer>
                                 </ProtectedRoute>
                             }>
+                                <Route path="" element={
+                                    <Home/>
+                                }>
+                                </Route>
                                 <Route path="components" element={
                                     <Components/>
-                                    // <div></div>
                                 }/>
                                 <Route path="settings" element={
-                                    // <Settings/>
-                                    <div></div>
+                                    <Settings/>
                                 }/>
                             </Route>
                             <Route path="/authentication/*" element={<AuthenticationView/>}/>

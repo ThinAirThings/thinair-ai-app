@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Box, Flex, Heading, ScrollArea, Tabs } from "@radix-ui/themes";
+import { Box, Button, Flex, Heading, ScrollArea, Tabs } from "@radix-ui/themes";
 import { FC, useState } from "react";
 import { ExtractComponentParameters } from "../../../ui/helpers/extract-component-parameters";
 import { FileTable } from "./FileTable";
@@ -11,11 +11,13 @@ import { useThinAir } from "../../../clients/Thinair/useThinAir";
 import { convertFileToBase64 } from "../../../helpers/file-utils";
 import { LoadingButton } from "../../../ui/components/LoadingButton/LoadingButton";
 import { PanelSlider } from "../../../interface/PanelSlider/PanelSlider";
+import { FileUploadDialog } from "./FileUploadDialog";
 
 
 export const ModelManagementPanel: FC<ExtractComponentParameters<typeof ModelManagementPanelRoot>> = ({...props}) => {
     // State
     const selectedComponentId = useStateStore((state) => state.selectedComponentId)
+    const [fileUploadDialogOpen, setFileUploadDialogOpen] = useState(false);
     const [
         leftPanelWidth,
         bottomPanelHeight,
@@ -35,7 +37,8 @@ export const ModelManagementPanel: FC<ExtractComponentParameters<typeof ModelMan
         isFileDialogActive
     } = useDropzone({
         onDrop: async (acceptedFiles) => {
-            await createDataFile.mutateAsync({
+            // Get userid
+            const result = await createDataFile.mutateAsync({
                 fileType: acceptedFiles[0].type,
                 fileName: acceptedFiles[0].name,
                 fileData: await convertFileToBase64(acceptedFiles[0])
@@ -43,7 +46,33 @@ export const ModelManagementPanel: FC<ExtractComponentParameters<typeof ModelMan
                 onSuccess: () => {
                     createDataFile.reset()
                 }
+            }) as any
+            const formData = new FormData()
+            formData.append('user_id', `xxx_${result.userId.replaceAll('-', '_')}`)
+            formData.append('partition_id', `xxx_${selectedComponentId!.replaceAll('-', '_')}`)
+            formData.append('subset', JSON.stringify(['brandName', 'title']))
+            formData.append('file', acceptedFiles[0])
+            const uploadResult = await fetch('http://a3952811bef8a47c3988b9884fe872fd-1284189378.us-east-2.elb.amazonaws.com/vecdb/upload_csv', {
+                method: 'POST',
+                body: formData,
+                mode:'no-cors'
             })
+            const uploadJson = await uploadResult.json()
+            const uploadResultText = await uploadResult.text()
+            console.log(uploadJson)
+            console.log(uploadResultText)
+            // const jsonUploadResult = await uploadResult.json()
+            // console.log(jsonUploadResult)
+            // await createDataFile.mutateAsync({
+            //     fileType: acceptedFiles[0].type,
+            //     fileName: acceptedFiles[0].name,
+            //     fileData: await convertFileToBase64(acceptedFiles[0])
+            // }, {
+            //     onSuccess: () => {
+            //         createDataFile.reset()
+            //     }
+            // })
+
         },
         accept: {
             'text/csv': ['.csv'],
@@ -76,7 +105,7 @@ export const ModelManagementPanel: FC<ExtractComponentParameters<typeof ModelMan
                 />
                 <Heading size={'3'}>Model Management</Heading>
                 <ScrollArea scrollbars="vertical">
-                <Tabs.Root defaultValue="fileTable" css={{height: "100%"}}>
+                <Tabs.Root defaultValue="systemPrompt" css={{height: "100%"}}>
                     <Tabs.List>
                         <Flex justify={'between'} width={'100%'}>
                             <Flex>
@@ -85,14 +114,18 @@ export const ModelManagementPanel: FC<ExtractComponentParameters<typeof ModelMan
                                 <Tabs.Trigger value="tuning">Tuning</Tabs.Trigger>
                             </Flex>
                             <Tabs.Content value="fileTable">
-                                <LoadingButton
+                                {/* <LoadingButton
                                     isLoading={isFileDialogActive || createDataFile.isPending}
                                     size={'1'}
                                     {...getRootProps()}
                                 >
                                     <UploadIcon/>Upload Files
-                                </LoadingButton>
-                                
+                                </LoadingButton> */}
+                                <Button 
+                                    size='1'
+                                    onClick={() => setFileUploadDialogOpen(true)}
+                                ><UploadIcon/>Upload Data</Button>
+                                <FileUploadDialog dialogState={[fileUploadDialogOpen, setFileUploadDialogOpen]}/>
                             </Tabs.Content>
                         </Flex>
                     </Tabs.List>

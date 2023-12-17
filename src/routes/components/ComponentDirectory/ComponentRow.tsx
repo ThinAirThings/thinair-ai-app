@@ -76,7 +76,11 @@ export const ComponentRow: FC<{
                                 const data = Object.fromEntries(new FormData(event.currentTarget)) as {
                                     componentName: string
                                 }
-                                await updateComponent.mutateAsync(data)
+                                await updateComponent.mutateAsync({
+                                    updates: {
+                                        componentName: data.componentName
+                                    }
+                                })
                                 setIsRenameActive(false)
                             }}>
                                 <Form.Field name="componentName" asChild>
