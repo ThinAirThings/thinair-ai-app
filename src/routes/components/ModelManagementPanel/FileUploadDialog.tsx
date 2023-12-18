@@ -10,12 +10,14 @@ import { useThinAir } from "../../../clients/Thinair/useThinAir";
 import { useStateStore } from "../../../storage/useStateStore";
 import { convertFileToBase64 } from "../../../helpers/file-utils";
 import { useAuthentication } from "../../../air-systems/Authentication.configure";
+import { useQueryClient } from "@tanstack/react-query";
 
 export const FileUploadDialog: FC<{
     dialogState: ReturnType<typeof useState<boolean>>
 }> = ({
     dialogState: [dialog, setDialogOpen],
 }) => {
+    const queryClient = useQueryClient()
     // State
     const selectedComponentId = useStateStore((state) => state.selectedComponentId)
     const [displayFormat, setDisplayFormat] = useState<string>('')
@@ -194,32 +196,33 @@ export const FileUploadDialog: FC<{
                                             displayFormat: string
                                         }
                                         const response = await uploadToVecdb.mutateAsync({
+                                            fileName: acceptedFiles[0].name,
                                             fileData: await convertFileToBase64(acceptedFiles[0]),
                                             subset: csvData.filter(({includeInSearch}) => includeInSearch).map(({columnName}) => columnName),
                                             displayFormat: formData.displayFormat
                                         })
-                                        console.log(response)
+                                        queryClient.invalidateQueries({queryKey: ['components', selectedComponentId, 'task', response.task_id,]})
+                                        queryClient.invalidateQueries({queryKey: ['components', selectedComponentId, 'data_files']})
+                                        setDialogOpen(false)
                                         let statusCheck = true
                                         let failCount = 0
-                                        while (statusCheck && response.task_id !== 'undefined'){
-                                            const statusResponse = await protectedFetch(`https://api.dev.thinair.cloud/v1/components/${selectedComponentId}/task/${response.task_id}`) as {
-                                                status: string,
-                                                task_id: string
-                                            }
-                                            if (statusResponse.task_id === 'undefined'){
-                                                statusCheck = false
-                                            }
-                                            console.log(statusResponse)
-                                            // const statusJson = await statusResponse.json()
-                                            if (statusResponse.status.includes('Failed')){
-                                                failCount += 1
-                                            }
-                                            if (failCount > 3){
-                                                statusCheck = false
-                                            }
-                                            await new Promise((resolve) => setTimeout(resolve, 2000))
-                                        }
-                                        
+                                        // while (statusCheck && response.task_id !== 'undefined'){
+                                        //     const statusResponse = await protectedFetch(`https://api.dev.thinair.cloud/v1/components/${selectedComponentId}/task/${response.task_id}`) as {
+                                        //         status: string,
+                                        //         task_id: string
+                                        //     }
+                                        //     if (statusResponse.task_id === 'undefined'){
+                                        //         statusCheck = false
+                                        //     }
+                                        //     // const statusJson = await statusResponse.json()
+                                        //     if (statusResponse.status.includes('Failed')){
+                                        //         failCount += 1
+                                        //     }
+                                        //     if (failCount > 3){
+                                        //         statusCheck = false
+                                        //     }
+                                        //     await new Promise((resolve) => setTimeout(resolve, 2000))
+                                        // }
                                     }}>
                                         <Flex direction={'column'} gap='2'>
                                             <Form.Field name="displayFormat">

@@ -52,7 +52,7 @@ export const Develop = () => {
             </Button>
             {showThemeSelector && <ThemeSelector/>}
             <iframe 
-                src={`https://intelligent-search.dev.thinair.cloud/?componentId=${selectedComponentId}&accent-color=${componentTheme.accentColor}&mode=${componentTheme.mode}`} 
+                src={`https://intelligent-search.dev.thinair.cloud/?componentId=${selectedComponentId}&accent-color=${componentTheme.accentColor}&mode=${componentTheme.mode}&nocache=12345`} 
                 style={{
                     width: '100%',
                     height: 'auto',

@@ -114,13 +114,6 @@ export const ModelManagementPanel: FC<ExtractComponentParameters<typeof ModelMan
                                 <Tabs.Trigger value="tuning">Tuning</Tabs.Trigger>
                             </Flex>
                             <Tabs.Content value="fileTable">
-                                {/* <LoadingButton
-                                    isLoading={isFileDialogActive || createDataFile.isPending}
-                                    size={'1'}
-                                    {...getRootProps()}
-                                >
-                                    <UploadIcon/>Upload Files
-                                </LoadingButton> */}
                                 <Button 
                                     size='1'
                                     onClick={() => setFileUploadDialogOpen(true)}

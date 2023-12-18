@@ -65,6 +65,8 @@ type ThinAirApi = <
     ? 'POST' | 'GET'
     : P extends ['components', string, 'vecdb', 'status']
     ? 'GET'
+    : P extends ['components', string, 'task', string]
+    ? 'GET'
     : never,
     IO extends [P, M] extends [['authorize', 'api_keys'], 'POST']
         ? [[], {
@@ -123,6 +125,7 @@ type ThinAirApi = <
         ? [[], {
             dataFiles: Record<string, {
                 fileType: string,
+                taskId: string
                 fileName: string,
                 include: boolean
             }>
@@ -137,6 +140,7 @@ type ThinAirApi = <
         ? [[], {}]
         : [P, M] extends [['components', string, 'vecdb'], 'POST']
         ? [[{
+            fileName: string
             fileData: string
             subset: string[]
             displayFormat: string
